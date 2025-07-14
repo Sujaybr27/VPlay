@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+</head>
+<body>
+    <div id="root">Loading...</div>
+    <script type="module">
+        try {
+            console.log('Testing module import...');
+            import('./src/main.jsx').then(() => {
+                console.log('✅ React app loaded successfully');
+            }).catch(err => {
+                console.error('❌ Error loading React app:', err);
+                document.getElementById('root').innerHTML = '<h1>Error: ' + err.message + '</h1>';
+            });
+        } catch (err) {
+            console.error('❌ Script error:', err);
+            document.getElementById('root').innerHTML = '<h1>Script Error: ' + err.message + '</h1>';
+        }
+    </script>
+</body>
+</html>

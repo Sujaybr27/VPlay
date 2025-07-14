@@ -1,0 +1,4 @@
+[dotenv@17.0.0] injecting env (2) from .env – 🔐 encrypt with dotenvx: https://dotenvx.com
+🔍 Prisma client initialized
+✅ Server running at http://localhost:5050
+✅ Database connected successfully

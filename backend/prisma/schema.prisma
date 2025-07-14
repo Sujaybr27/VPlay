@@ -1,0 +1,59 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String?
+  email     String    @unique
+  password  String?
+  isAdmin   Boolean   @default(false)
+  bookings  Booking[]
+}
+
+model Location {
+  id       Int      @id @default(autoincrement())
+  name     String
+  address  String
+  ownerId  Int
+  courts   Court[]
+}
+
+model Court {
+  id          Int      @id @default(autoincrement())
+  name        String
+  sport       String
+  description String
+  maxPlayers  Int
+  price       Float
+  locationId  Int
+  slots       Slot[]
+
+  location Location @relation(fields: [locationId], references: [id])
+}
+
+model Slot {
+  id       Int     @id @default(autoincrement())
+  start    DateTime
+  end      DateTime
+  isBooked Boolean @default(false)
+  courtId  Int
+  booking  Booking?
+
+  court Court @relation(fields: [courtId], references: [id])
+}
+
+model Booking {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  slotId    Int @unique
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  slot   Slot   @relation(fields: [slotId], references: [id])
+}
